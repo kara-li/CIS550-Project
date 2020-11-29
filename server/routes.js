@@ -9,7 +9,6 @@ oracledb.initOracleClient({libDir: '/Users/chaimfishman/instantclient_19_8'});
 async function getRecipeInfo(req, res) {
     var recipeID = req.params.recipeid;
     console.log('getting info for recipe ' + recipeID)
-    var recipeID = 5179;
     var query = `
         SELECT *
         FROM Recipe_Step
@@ -24,22 +23,31 @@ async function getRecipeInfo(req, res) {
 
 async function getRelevantRecipes(req, res) {
     var foodItems = req.params.items;
-    console.log("seraching for recipes with following foods: " + foodItems)
+    console.log(foodItems)
+    foodItems = foodItems.replaceAll(',', `\', \'`);
+    foodItems = `'${foodItems}'`;
+    console.log("seraching for recipes with following foods: " + foodItems);
 
     var query = `
-        WITH good_recipes_ids AS (
-        SELECT rr.recipe_id AS id, AVG(rating) AS rating
-        FROM Recipe_Review rr JOIN Recipe r ON rr.recipe_id = r.id
-        WHERE minutes < 1
-        GROUP BY rr.recipe_id 
-        HAVING AVG(rating) = 5
+        WITH food_ids_of_listed_foods AS(
+            SELECT ingredient_id 
+            FROM Food
+            WHERE description IN (${foodItems})
+        ),
+        query_recipe_ids AS (
+            SELECT recipe_id
+            FROM Recipe_Ingredient_Map m
+            WHERE ingredient_id IN (SELECT * FROM food_ids_of_listed_foods)
+            GROUP BY recipe_id
+            HAVING COUNT(*) >= ${foodItems.split(',').length}
         )
-        SELECT *
-        FROM Recipe r1 
-        JOIN good_recipes_ids r2 ON r1.id = r2.id
+        SELECT * FROM Recipe r1 JOIN query_recipe_ids r2 ON r1.id = r2.recipe_id
     `;
+
+    console.log(query)
     var connection = await oracledb.getConnection(config);
     const result = await connection.execute(query);
+    console.log(result.rows)
     res.json(result.rows);
 };
 
