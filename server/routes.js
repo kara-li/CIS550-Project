@@ -24,7 +24,7 @@ async function getRecipeInfo(req, res) {
 async function getRelevantRecipes(req, res) {
     var foodItems = req.params.items;
     var rowNumStart = parseInt(req.params.rownum);
-    var batchSize = 10;
+    var batchSize = 20;
     console.log(foodItems)
     console.log(`batchSize is ${batchSize}`)
     foodItems = foodItems.replaceAll(',', `\', \'`);
