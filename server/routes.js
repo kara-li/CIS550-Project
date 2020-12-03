@@ -23,7 +23,10 @@ async function getRecipeInfo(req, res) {
 
 async function getRelevantRecipes(req, res) {
     var foodItems = req.params.items;
+    var rowNumStart = parseInt(req.params.rownum);
+    var batchSize = 10;
     console.log(foodItems)
+    console.log(`batchSize is ${batchSize}`)
     foodItems = foodItems.replaceAll(',', `\', \'`);
     foodItems = `'${foodItems}'`;
     console.log("seraching for recipes with following foods: " + foodItems);
@@ -40,8 +43,10 @@ async function getRelevantRecipes(req, res) {
             WHERE ingredient_id IN (SELECT * FROM food_ids_of_listed_foods)
             GROUP BY recipe_id
             HAVING COUNT(*) >= ${foodItems.split(',').length}
-        )
-        SELECT * FROM Recipe r1 JOIN query_recipe_ids r2 ON r1.id = r2.recipe_id
+        ) SELECT * FROM (
+            SELECT id, name, minutes, n_steps, n_ingredients, n_reviews, avg_rating, ROWNUM AS rnum 
+            FROM Recipe r1 JOIN query_recipe_ids r2 ON r1.id = r2.recipe_id ORDER BY id
+        ) WHERE rnum BETWEEN ${rowNumStart} AND ${rowNumStart + batchSize}
     `;
 
     console.log(query)
