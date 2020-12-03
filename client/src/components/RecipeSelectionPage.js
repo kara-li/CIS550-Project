@@ -27,73 +27,7 @@ export default class RecipeSelectionPage extends React.Component {
         });
         console.log('this long')
         console.log(this.state.foodItems.length)
-        // Send an HTTP request to the server.
-        // fetch(`http://localhost:8081/recipes/${foodItems}/1`, {
-        //     method: 'GET' // The type of HTTP request.
-        // })
-        //     .then(res => res.json()) // Convert the response data to a JSON.
-        //     .then(recipeList => {
-        //         if (!recipeList) return;
-        //         if (recipeList.length < 10) {
-        //             this.setState({ hasMore: false })
-        //         }
-        //         this.setState({ rowNum: 10 });
-        //         console.log(recipeList)
-        //         let recipeDivs = recipeList.map((recipeObj, i) =>
-        //             <RecipeListItem 
-        //                 id={recipeObj[0]} 
-        //                 name={recipeObj[1]} 
-        //                 minutes={recipeObj[2]} 
-        //                 n_steps={recipeObj[3]} 
-        //                 n_ingredients={recipeObj[4]} 
-        //                 n_reviews={recipeObj[5]} 
-        //                 vg_rating={recipeObj[6]} 
-        //                 rnum={recipeObj[7]} 
-        //                 displayRecipe={this.props.displayRecipe}
-        //             />
-        //         );
-
-        //         this.setState({
-        //             foodItems: foodItems,
-        //             recipes: recipeDivs
-        //         })
-        //     })
-        //     .catch(err => console.log(err))	// Print the error if there is one.
     }
-
-    // fetchMoreData = () => {
-    //     if (!this.state.hasMore) return
-    //     fetch(`http://localhost:8081/recipes/${this.state.foodItems}/${this.state.rowNum}`, {
-    //         method: 'GET' // The type of HTTP request.
-    //     })
-    //         .then(res => res.json()) // Convert the response data to a JSON.
-    //         .then(recipeList => {
-    //             if (!recipeList) return;
-    //             if (recipeList.length < 10) {
-    //                 this.setState({ hasMore: false })
-    //             } else {
-    //                 this.setState({ rowNum: this.state.rowNum + 10 })
-    //             }
-    //             console.log(recipeList)
-    //             let recipeDivs = recipeList.map((recipeObj, i) =>
-    //                 <RecipeListItem 
-    //                     id={recipeObj[0]} 
-    //                     name={recipeObj[1]} 
-    //                     minutes={recipeObj[2]} 
-    //                     n_steps={recipeObj[3]} 
-    //                     n_ingredients={recipeObj[4]} 
-    //                     n_reviews={recipeObj[5]} 
-    //                     vg_rating={recipeObj[6]} 
-    //                     displayRecipe={this.props.displayRecipe}
-    //                 />
-    //             );
-
-    //             this.setState({
-    //                 recipes: this.state.recipes.concat(recipeDivs)
-    //             })
-    //         })
-    //         .catch(err => console.log(err))	// Print the error if there is one.
-    // };
     
     
 	render() {
