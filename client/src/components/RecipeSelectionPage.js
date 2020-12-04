@@ -2,11 +2,6 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../style/RecipeSelectionPage.css';
 import RecipeSelectionParams from './RecipeSelectionParams'
-
-
-
-import RecipeListItem from './RecipeListItem';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import DisplayRelevantRecipes from './DisplayRelevantRecipes'
 
 export default class RecipeSelectionPage extends React.Component {
@@ -25,7 +20,6 @@ export default class RecipeSelectionPage extends React.Component {
         this.setState({
             foodItems: foodItems,
         });
-        console.log('this long')
         console.log(this.state.foodItems.length)
     }
     

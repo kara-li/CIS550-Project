@@ -4,12 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipeListItem from './RecipeListItem';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-const style = {
-  height: 30,
-  border: "1px solid green",
-  margin: 6,
-  padding: 8
-};
 
 export default class DisplayRelevantRecipes extends React.Component {
 	constructor(props) {
@@ -18,7 +12,8 @@ export default class DisplayRelevantRecipes extends React.Component {
             recipes: [],
             rowNum: 1,
             hasMore: true,
-            foodItems: this.props.foodItems
+            foodItems: this.props.foodItems,
+            batchSize: 20 //Should be the same as the batch size in corresponding query in routes.js
         };	
 
         this.fetchMoreData = this.fetchMoreData.bind(this);
@@ -44,27 +39,20 @@ export default class DisplayRelevantRecipes extends React.Component {
         this.fetchMoreData()
     }
 
-    componentDidUpdate() {
-        console.log("componentDidUpdate")
-    }
-
 
     fetchMoreData = () => {
         if (!this.state.hasMore) return
         let url = `http://localhost:8081/recipes/${this.props.foodItems}/${this.state.rowNum}`
-        console.log(`url is ${url}`)
-        console.log(`this.props.foodItems is ${this.state.foodItems}`)
-        console.log(`this.state.rowNum is ${this.state.rowNum}`)
         fetch(url, {
             method: 'GET' // The type of HTTP request.
         })
             .then(res => res.json()) // Convert the response data to a JSON.
             .then(recipeList => {
                 if (!recipeList) return;
-                if (recipeList.length < 10) {
+                if (recipeList.length < this.state.batchSize) {
                     this.setState({ hasMore: false })
                 } else {
-                    this.setState({ rowNum: this.state.rowNum + 10 })
+                    this.setState({ rowNum: this.state.rowNum + this.state.batchSize })
                 }
                 console.log(recipeList)
                 let recipeDivs = recipeList.map((recipeObj, i) =>
