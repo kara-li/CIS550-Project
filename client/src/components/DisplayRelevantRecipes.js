@@ -63,7 +63,7 @@ export default class DisplayRelevantRecipes extends React.Component {
                         n_steps={recipeObj[3]} 
                         n_ingredients={recipeObj[4]} 
                         n_reviews={recipeObj[5]} 
-                        vg_rating={recipeObj[6]} 
+                        avg_rating={recipeObj[6]} 
                         displayRecipe={this.props.displayRecipe}
                     />
                 );
@@ -80,7 +80,7 @@ export default class DisplayRelevantRecipes extends React.Component {
         console.log(this.props.foodItems)
 		return (
 			<div>
-                <div id="scrollableDiv" style={{ height: 800, overflow: "auto" }}>
+                <div id="scrollableDiv" style={{ height: 600, overflow: "auto" }}>
                     <InfiniteScroll
                         dataLength={this.state.recipes.length}
                         next={this.fetchMoreData}
