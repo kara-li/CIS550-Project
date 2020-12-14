@@ -19,6 +19,10 @@ app.get('/recipes/:items/:rownum', routes.getRelevantRecipes);
 
 app.get('/recipeinfo/:recipeid', routes.getRecipeInfo);
 
+app.get('/ingredientcals/:recipeid', routes.getIngredientCals);
+
+app.get('/recipesteps/:recipeid', routes.getRecipeSteps);
+
 app.get('/recipereviews/:recipeid/:rownum', routes.getRecipeReviews);
 
 app.listen(8081, () => {
