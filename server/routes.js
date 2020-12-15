@@ -4,7 +4,6 @@ const oracledb = require('oracledb');
 try {
     oracledb.initOracleClient({libDir: '/Users/nealea/Downloads/instantclient_19_8'});
 } catch (err) {
-    console.error("Whoops!");
     console.error(err);
     process.exit(1);
 }
