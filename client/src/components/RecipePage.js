@@ -4,6 +4,7 @@ import RecipeStep from './RecipeStep'
 import Reviews from './Reviews'
 import Ingredient from './Ingredient'
 import RecipeInfo from './RecipeInfo'
+import Button from 'react-bootstrap/Button'
 
 export default class RecipePage extends React.Component {
 	constructor(props) {
@@ -75,23 +76,23 @@ export default class RecipePage extends React.Component {
 			<div className="Recipe">
 				{this.state.info}
 				----------------------------
-				<h1> Ingredients</h1>
+				<h3> Ingredients</h3>
 				<div className="jumbotron">
 			        <div className="steps-container">
 			            {this.state.ingredients}
 			        </div>
 			    </div>
 				----------------------------
-				<h1> Steps</h1>
+				<h3> Steps</h3>
 				<div className="jumbotron">
 			        <div className="steps-container">
 			            {this.state.recipeSteps}
 			        </div>
 			    </div>
 				--------------------------
-				<div onClick={() => this.props.displayRecipe(null)}>
+				<Button onClick={() => this.props.displayRecipe(null)}>
 					<b> Find other recipes...</b>
-				</div>
+				</Button>
 				<br>
 				</br>
 				<Reviews recipeId={this.props.recipeId}/>

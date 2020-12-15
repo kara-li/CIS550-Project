@@ -9,8 +9,7 @@ export default class Ingredient extends React.Component {
 	render() {
 		return (
 			<div className="ingredientResults">
-				<div className="name">{this.props.name}:</div>
-				<div className="cals">{this.props.cals} calories</div>
+				{this.props.name}: {this.props.cals} calories
 			</div>
 		);
 	}

@@ -9,8 +9,7 @@ export default class RecipeStep extends React.Component {
 	render() {
 		return (
 			<div className="recipeStepResults">
-				<div className="stepNum">{this.props.stepNum + 1}.</div>
-				<div className="recipeStep">{this.props.description}</div>
+				Step {this.props.stepNum + 1}: {this.props.description}
 			</div>
 		);
 	}

@@ -9,7 +9,7 @@ export default class RecipeInfo extends React.Component {
 	render() {
 		return (
 			<div className="recipeStepResults">
-				<div className="name">Recipe: {this.props.name}</div>
+				<div className="name"><h1>Recipe: {this.props.name}</h1></div>
 				<div className="minutes">Time: {this.props.mins} minutes</div>
                 <div className="rating">Average rating: {this.props.rating}</div>
                 <div className="description">Description: {this.props.description}</div>
