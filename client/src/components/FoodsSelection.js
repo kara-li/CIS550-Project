@@ -4,6 +4,8 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../style/ItemsSelection.css';
 
+import Button from "react-bootstrap/Button"
+
 export default class FoodsSelection extends React.Component {
 	constructor(props) {
         super(props);
@@ -45,7 +47,7 @@ export default class FoodsSelection extends React.Component {
                     ))}
                     <li className="input-item__items__input"><input type="text" onKeyDown={this.inputKeyDown} ref={c => { this.itemInput = c; }} /></li>
                 </ul>
-                <button className="submit-btn" id="decadesSubmitBtn" onClick={() => this.props.submitFoodItems(this.state.items)}>Search</button>
+                <Button className="submit-btn" id="decadesSubmitBtn" onClick={() => this.props.submitFoodItems(this.state.items)}>Search</Button>
             </div>
         );
 	}
