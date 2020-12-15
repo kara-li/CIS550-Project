@@ -1,6 +1,6 @@
 var config = require('./db-config.js');
 const oracledb = require('oracledb');
-oracledb.initOracleClient({libDir: '/Users/chaimfishman/instantclient_19_8'});
+oracledb.initOracleClient({libDir: '/Users/Sid/instantclient_19_9'});
 
 /* -------------------------------------------------- */
 /* ------------------- Route Handlers --------------- */
@@ -20,11 +20,22 @@ async function getRecipeInfo(req, res) {
     res.json(result.rows);
 }
 
+async function getRelevantTags(req, res) {
+    var tagPre = req.params.tags;
+    console.log(tagPre);
+    tagPre = `'${tagPre}%'`;
+    var query = `SELECT DISTINCT tag FROM RECIPE_TAG WHERE tag LIKE ${tagPre}`
+    console.log(query)
+    var connection = await oracledb.getConnection(config);
+    const result = await connection.execute(query);
+    console.log(result.rows)
+    res.json(result.rows);
+}
 
 async function getRelevantRecipes(req, res) {
     var foodItems = req.params.items;
     console.log(foodItems)
-    foodItems = foodItems.replaceAll(',', `\', \'`);
+    foodItems = foodItems.split(',').join( `\', \'`);
     foodItems = `'${foodItems}'`;
     console.log("seraching for recipes with following foods: " + foodItems);
 
@@ -56,4 +67,5 @@ async function getRelevantRecipes(req, res) {
 module.exports = {
     getRecipeInfo: getRecipeInfo,
     getRelevantRecipes: getRelevantRecipes,
+    getRelevantTags: getRelevantTags
 }

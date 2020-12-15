@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 app.get('/recipes/:items', routes.getRelevantRecipes);
+app.get('/recipes/tags/:tags', routes.getRelevantTags);
 
 app.get('/recipeinfo/:recipeid', routes.getRecipeInfo);
 
