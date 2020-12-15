@@ -13,7 +13,7 @@ try {
 /* ------------------- Route Handlers --------------- */
 /* -------------------------------------------------- */
 
-async function getRecipeInfo(req, res) {
+async function getRecipeSteps(req, res) {
     var recipeID = req.params.recipeid;
     console.log('getting info for recipe ' + recipeID)
     var query = `
