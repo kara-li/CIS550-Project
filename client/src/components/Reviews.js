@@ -60,13 +60,12 @@ export default class Reviews extends React.Component {
                         next={this.fetchMoreData}
                         hasMore={this.state.hasMore}
                         loader={<h4>Loading...</h4>}
-                        height={200}
+                        height={250}
                         endMessage={
                             <p style={{ textAlign: "center" }}>
                             <b>No More Reviews</b>
                             </p>
-                        }
-                    >
+                        }>
                         {this.state.reviews}
                     </InfiniteScroll>
                 </div>

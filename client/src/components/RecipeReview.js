@@ -9,10 +9,7 @@ export default class RecipeReview extends React.Component {
 	render() {
 		return (
 			<div>
-				<div>
-                    rating: {this.props.rating}, 
-					review: {this.props.review}
-				</div>
+                Rating: {this.props.rating} out of 5 stars, review: {this.props.review}
 			</div>
 			
 		);

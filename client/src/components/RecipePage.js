@@ -5,6 +5,8 @@ import Reviews from './Reviews'
 import Ingredient from './Ingredient'
 import RecipeInfo from './RecipeInfo'
 import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
+import Jumbotron from 'react-bootstrap/Jumbotron'
 
 export default class RecipePage extends React.Component {
 	constructor(props) {
@@ -73,30 +75,27 @@ export default class RecipePage extends React.Component {
 
 	render() {
 		return (
-			<div className="Recipe">
-				{this.state.info}
-				----------------------------
-				<h3> Ingredients</h3>
-				<div className="jumbotron">
-			        <div className="steps-container">
-			            {this.state.ingredients}
-			        </div>
-			    </div>
-				----------------------------
-				<h3> Steps</h3>
-				<div className="jumbotron">
-			        <div className="steps-container">
-			            {this.state.recipeSteps}
-			        </div>
-			    </div>
-				--------------------------
-				<Button onClick={() => this.props.displayRecipe(null)}>
-					<b> Find other recipes...</b>
-				</Button>
-				<br>
-				</br>
-				<Reviews recipeId={this.props.recipeId}/>
-			</div>
+			<Container className="p-3">
+				<Jumbotron>
+					<Button onClick={() => this.props.displayRecipe(null)}>
+						<b>Return to Home Page</b>
+					</Button>
+					<br></br>
+					{this.state.info}
+					<br></br>
+					<h3>Ingredients</h3>
+					{this.state.ingredients}
+					<br></br>
+					<h3>Steps</h3>
+					{this.state.recipeSteps}
+					<br></br>
+					<h3>Reviews</h3>
+					<Reviews recipeId={this.props.recipeId}/>
+					<Button onClick={() => this.props.displayRecipe(null)}>
+						<b>Return to Home Page</b>
+					</Button>
+				</Jumbotron>
+			</Container>
 		);
 	}
 }
