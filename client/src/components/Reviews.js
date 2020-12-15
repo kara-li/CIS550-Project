@@ -60,7 +60,7 @@ export default class Reviews extends React.Component {
                         next={this.fetchMoreData}
                         hasMore={this.state.hasMore}
                         loader={<h4>Loading...</h4>}
-                        height={100}
+                        height={200}
                         endMessage={
                             <p style={{ textAlign: "center" }}>
                             <b>No More Reviews</b>
