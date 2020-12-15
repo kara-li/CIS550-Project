@@ -10,7 +10,7 @@ export default class RecipeSelectionPage extends React.Component {
 
     // State maintained by this React component
     this.state = {
-      pic_url: "",
+      pic_url: "holder.js/100px180",
     };
   }
 
@@ -31,7 +31,7 @@ export default class RecipeSelectionPage extends React.Component {
       console.log("p here:" + p);
       console.log("p.url: " + p.url);
       await this.setState({
-        pic_url: p.url,
+        pic_url: p.url + "/100px180",
       });
       console.log("props" + this.state.pic_url);
     });
@@ -47,18 +47,9 @@ export default class RecipeSelectionPage extends React.Component {
           {/* name: {this.props.name}, minutes: {this.props.minutes}, n_steps:{" "}
           {this.props.n_steps}, n_ingredients: {this.props.n_ingredients},
           n_reviews: {this.props.n_reviews}, avg_rating:{this.props.avg_rating} */}
-          <Card style={{ width: "18rem" }}>
+          <Card border="dark" style={{ width: "18rem" }}>
             <Card.Img variant="top" src={this.state.pic_url} />
-            <Card.Body>
-              <Card.Title>{this.props.name}</Card.Title>
-              <Card.Text>description: {this.props.description}</Card.Text>
-              <Card.Text>minutes: {this.props.minutes}</Card.Text>
-              <Card.Text>n_steps: {this.props.n_steps}</Card.Text>
-              <Card.Text>n_ingredients: {this.props.n_ingredients}</Card.Text>
-              <Card.Text>n_reviews: {this.props.n_reviews}</Card.Text>
-              <Card.Text>avg rating: {this.props.avg_rating}</Card.Text>
-              <Button variant="primary">Go somewhere</Button>
-            </Card.Body>
+            <Card.Header as="h5">{this.props.name}</Card.Header>
           </Card>
         </div>
       </div>
