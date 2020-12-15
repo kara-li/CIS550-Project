@@ -2,7 +2,7 @@ var config = require('./db-config.js');
 const oracledb = require('oracledb');
 //oracledb.initOracleClient({libDir: '/Users/chaimfishman/instantclient_19_8'});
 try {
-    oracledb.initOracleClient({libDir: '/Users/karali/instantclient_19_8'});
+    oracledb.initOracleClient({libDir: '/Users/nealea/Downloads/instantclient_19_8'});
 } catch (err) {
     console.error("Whoops!");
     console.error(err);
