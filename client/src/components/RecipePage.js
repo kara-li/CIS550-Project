@@ -48,7 +48,7 @@ export default class RecipePage extends React.Component {
 				</div>
 				<br>
 				</br>
-				<Reviews/>
+				<Reviews recipeId={this.props.recipeId}/>
 			</div>
 		);
 	}

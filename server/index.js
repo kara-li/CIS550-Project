@@ -15,11 +15,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 
-app.get('/recipes/:items', routes.getRelevantRecipes);
-app.get('/recipes/tags/:tags', routes.getRelevantTags);
+app.get('/recipestags/:tags', routes.getRelevantTags);
+app.get('/recipes/:items/:rownum', routes.getRelevantRecipes);
 
 app.get('/recipeinfo/:recipeid', routes.getRecipeInfo);
 
+app.get('/recipereviews/:recipeid/:rownum', routes.getRecipeReviews);
 
 app.listen(8081, () => {
 	console.log(`Server listening on PORT 8081`);

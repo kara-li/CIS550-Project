@@ -10,8 +10,13 @@ export default class RecipeSelectionPage extends React.Component {
 		return (
 			<div>
 				<div className="recipeResults" onClick={() => this.props.displayRecipe(this.props.id)}>
-					<div className="title">{this.props.title}</div>
-					<div className="prepTime">{this.props.prep_time}</div>
+
+					name: {this.props.name}, 
+					minutes: {this.props.minutes},
+					n_steps: {this.props.n_steps},
+					n_ingredients: {this.props.n_ingredients},
+					n_reviews: {this.props.n_reviews},
+					avg_rating:{this.props.avg_rating}
 				</div>
 			</div>
 			

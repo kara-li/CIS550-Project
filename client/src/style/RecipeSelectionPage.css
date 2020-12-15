@@ -8,7 +8,7 @@
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    height: 40px;
+    height: 100px;
   }
   
 .title, .prepTime .id, .rating, .recipeResults .votes, .headers .header {

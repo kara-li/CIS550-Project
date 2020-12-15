@@ -22,7 +22,7 @@ class Search extends React.Component {
     getInfo = () => {
         if (this.state.query == '') return;
         // Send an HTTP request to the server.
-        fetch(`http://localhost:8081/recipes/tags/` + String(this.state.query), {
+        fetch(`http://localhost:8081/recipestags/` + String(this.state.query), {
             method: 'GET' // The type of HTTP request.
         })
             .then(res => res.json()) // Convert the response data to a JSON.
