@@ -82,9 +82,13 @@ export default class DisplayRelevantRecipes extends React.Component {
           />
         ));
           console.log('concating new recipes in fetchMore')
-        this.setState({
-          recipes: this.state.recipes.concat(recipeDivs),
-        });
+        
+
+        if (this.state.recipes.length === 0 || recipeDivs[0].props.id !== this.state.recipes[0].props.id) { //avoid duplicates - bug fix
+          this.setState({
+            recipes: this.state.recipes.concat(recipeDivs),
+          });
+        }
       })
       .catch((err) => console.log(err)); // Print the error if there is one.
   };
