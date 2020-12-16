@@ -2,7 +2,7 @@ var config = require('./db-config.js');
 const oracledb = require('oracledb');
 //oracledb.initOracleClient({libDir: '/Users/chaimfishman/instantclient_19_8'});
 try {
-    oracledb.initOracleClient({libDir: '/Users/nealea/Downloads/instantclient_19_8'});
+    oracledb.initOracleClient({libDir: '/Users/Sid/instantclient_19_9'});
 } catch (err) {
     console.error("Whoops!");
     console.error(err);
@@ -41,6 +41,9 @@ async function getRelevantTags(req, res) {
 
 async function getRelevantRecipes(req, res) {
     var foodItems = req.params.items;
+    var type = parseInt(req.params.type);
+    var sort = parseInt(req.params.sort);
+    var query = req.params.query;
     var rowNumStart = parseInt(req.params.rownum);
     var batchSize = 20;
     console.log(foodItems)
@@ -49,23 +52,86 @@ async function getRelevantRecipes(req, res) {
     //foodItems = foodItems.replaceAll(',', `\', \'`);
     foodItems = `'${foodItems}'`;
     console.log("searching for recipes with following foods: " + foodItems);
-
+    var prefix = decodeURI(query);
+    var jointable = ""
+    if (query.length >= 10) {
+        jointable = `result`
+    }
+    else {
+        jointable = `query_recipe_ids`
+    }
+    var orderby = "";
+    switch(sort) {
+        case(0):
+            orderby = "ORDER BY avg_rating DESC"
+        break;
+        case(1):
+            orderby = "ORDER BY n_reviews DESC"
+        break;
+        default:
+            orderby = "ORDER BY minutes DESC"
+        break;
+    }
+    var dbsearch = "";
+    switch (type) {
+        case(0):
+            dbsearch = `WITH food_ids_of_listed_foods AS(
+                SELECT ingredient_id 
+                FROM Food
+                WHERE description IN (${foodItems})
+            ),
+            query_recipe_ids AS (
+                SELECT recipe_id
+                FROM Recipe_Ingredient_Map m
+                WHERE ingredient_id IN (SELECT * FROM food_ids_of_listed_foods)
+                GROUP BY recipe_id
+                HAVING COUNT(*) >= ${foodItems.split(',').length}
+            )
+            ${query}
+            SELECT * FROM (
+                SELECT id, name, minutes, n_steps, n_ingredients, n_reviews, avg_rating, ROWNUM AS rnum 
+                FROM Recipe r1 JOIN ${jointable} r2 ON r1.id = r2.recipe_id ${orderby}
+            ) WHERE rnum BETWEEN ${rowNumStart} AND ${rowNumStart + batchSize - 1}`
+        break;
+        case(1):
+            dbsearch = `WITH food_ids_of_listed_foods AS(
+                SELECT ingredient_id 
+                FROM Food
+                WHERE description IN (${foodItems})
+            ),
+            recipe_join AS (
+                SELECT r.recipe_id, f.ingredient_id FROM Recipe_Ingredient_Map r 
+                LEFT JOIN food_ids_of_listed_foods f ON r.ingredient_id = f.ingredient_id
+            ), 
+            query_recipe_ids AS (
+                SELECT recipe_id
+                FROM recipe_join m
+                GROUP BY recipe_id
+                HAVING COUNT(*) - COUNT(ingredient_id) = 0
+            )
+            ${query}    
+            SELECT * FROM (
+                SELECT id, name, minutes, n_steps, n_ingredients, n_reviews, avg_rating, ROWNUM AS rnum 
+                FROM Recipe r1 JOIN ${jointable} r2 ON r1.id = r2.recipe_id ${orderby}
+            ) WHERE rnum BETWEEN ${rowNumStart} AND ${rowNumStart + batchSize - 1}
+                `
+        break;
+        default:
+            dbsearch = `WITH query_recipe_ids AS (
+                SELECT recipe_id 
+                   FROM Recipe_Ingredient_Map m
+                JOIN Food f ON m.ingredient_id = f.ingredient_id
+                WHERE description IN (${foodItems})
+            ) 
+            ${query}
+            SELECT * FROM (
+                SELECT id, name, minutes, n_steps, n_ingredients, n_reviews, avg_rating, ROWNUM AS rnum 
+                FROM Recipe r1 JOIN recipe_ids_some_given_food r2 ON r1.id = r2.recipe_id ${orderby}
+            ) WHERE rnum BETWEEN ${rowNumStart} AND ${rowNumStart + batchSize - 1}
+            `
+    }
     var query = `
-        WITH food_ids_of_listed_foods AS(
-            SELECT ingredient_id 
-            FROM Food
-            WHERE description IN (${foodItems})
-        ),
-        query_recipe_ids AS (
-            SELECT recipe_id
-            FROM Recipe_Ingredient_Map m
-            WHERE ingredient_id IN (SELECT * FROM food_ids_of_listed_foods)
-            GROUP BY recipe_id
-            HAVING COUNT(*) >= ${foodItems.split(',').length}
-        ) SELECT * FROM (
-            SELECT id, name, minutes, n_steps, n_ingredients, n_reviews, avg_rating, ROWNUM AS rnum 
-            FROM Recipe r1 JOIN query_recipe_ids r2 ON r1.id = r2.recipe_id ORDER BY id
-        ) WHERE rnum BETWEEN ${rowNumStart} AND ${rowNumStart + batchSize - 1}
+        ${dbsearch}
     `;
 
     console.log(query)
