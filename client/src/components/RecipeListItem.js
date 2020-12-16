@@ -13,30 +13,30 @@ export default class RecipeSelectionPage extends React.Component {
       pic_url: "holder.js/100px180",
     };
   }
-/*
-  async componentDidMount() {
-    console.log("in component did mount fuction");
-    console.log(`name is: ${this.props.name}`);
-    // Send an HTP request to the server
-    let pic_res = await fetch(
-      `http://localhost:8081/recipepicture/${this.props.name}`,
-      {
-        method: "GET", // The type of HTTP request
-      }
-    );
-    console.log("pic res: " + pic_res);
-    let pic_res_json = pic_res.json();
-    console.log(`URL is ${pic_res_json}`);
-    pic_res_json.then(async (p) => {
-      console.log("p here:" + p);
-      console.log("p.url: " + p.url);
-      await this.setState({
-        pic_url: p.url + "/100px180",
-      });
-      console.log("props" + this.state.pic_url);
-    });
-  }
-  */
+
+  // async componentDidMount() {
+  //   console.log("in component did mount fuction");
+  //   console.log(`name is: ${this.props.name}`);
+  //   // Send an HTP request to the server
+  //   let pic_res = await fetch(
+  //     `http://localhost:8081/recipepicture/${this.props.name}`,
+  //     {
+  //       method: "GET", // The type of HTTP request
+  //     }
+  //   );
+  //   console.log("pic res: " + pic_res);
+  //   let pic_res_json = pic_res.json();
+  //   console.log(`URL is ${pic_res_json}`);
+  //   pic_res_json.then(async (p) => {
+  //     console.log("p here:" + p);
+  //     console.log("p.url: " + p.url);
+  //     await this.setState({
+  //       pic_url: p.url + "/100px180",
+  //     });
+  //     console.log("props" + this.state.pic_url);
+  //   });
+  // }
+  
 
   render() {
     return (
