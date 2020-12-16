@@ -1,18 +1,27 @@
 var config = require('./db-config.js');
 const oracledb = require('oracledb');
 //oracledb.initOracleClient({libDir: '/Users/chaimfishman/instantclient_19_8'});
-try {
-    oracledb.initOracleClient({libDir: '/Users/nealea/Downloads/instantclient_19_8'});
-} catch (err) {
-    console.error(err);
-    process.exit(1);
-}
+oracledb.initOracleClient({libDir: '/Users/nealea/Downloads/instantclient_19_8'});
 
 const https = require("https");
 
 /* -------------------------------------------------- */
 /* ------------------- Route Handlers --------------- */
 /* -------------------------------------------------- */
+
+async function getRecipeSteps(req, res) {
+    var recipeID = req.params.recipeid;
+    console.log('getting info for recipe ' + recipeID)
+    var query = `
+        SELECT *
+        FROM Recipe_Step
+        WHERE recipe_id = ${recipeID}
+        ORDER BY step_num
+    `;
+    var connection = await oracledb.getConnection(config);
+    const result = await connection.execute(query);
+    res.json(result.rows);
+}
 
 async function getRelevantTags(req, res) {
     var tagPre = req.params.tags;
@@ -96,20 +105,6 @@ async function getIngredientCals(req, res) {
     var connection = await oracledb.getConnection(config);
     const result = await connection.execute(query);
     res.json(result.rows);
-}
-
-async function getRecipeSteps(req, res) {
-    var recipeID = req.params.recipeid;
-    console.log('getting steps for recipe ' + recipeID)
-    var query = `
-        SELECT *
-        FROM Recipe_Step
-        WHERE recipe_id = ${recipeID}
-        ORDER BY step_num
-    `;
-  var connection = await oracledb.getConnection(config);
-  const result = await connection.execute(query);
-  res.json(result.rows);
 }
 
 async function getRecipeReviews(req, res) {
