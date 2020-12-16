@@ -97,7 +97,7 @@ export default class NutritionSelection extends React.Component {
 	}
 	render() {
 		return (
-		<Collapsible trigger="Start here">
+		<Collapsible trigger="Advanced Search">
 			<div className ="container">
 				<div className ="row">
 					<div className ="col">
