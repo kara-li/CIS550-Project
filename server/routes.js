@@ -1,13 +1,7 @@
 var config = require('./db-config.js');
 const oracledb = require('oracledb');
 //oracledb.initOracleClient({libDir: '/Users/chaimfishman/instantclient_19_8'});
-try {
-    oracledb.initOracleClient({libDir: '/Users/nealea/Downloads/instantclient_19_8'});
-} catch (err) {
-    console.error("Whoops!");
-    console.error(err);
-    process.exit(1);
-}
+oracledb.initOracleClient({libDir: '/Users/nealea/Downloads/instantclient_19_8'});
 
 /* -------------------------------------------------- */
 /* ------------------- Route Handlers --------------- */
@@ -106,20 +100,6 @@ async function getIngredientCals(req, res) {
         )
         SELECT f.DESCRIPTION, c.AMOUNT
         FROM fdc_ids f JOIN cals c ON f.FDC_ID = c.FDC_ID
-    `;
-    var connection = await oracledb.getConnection(config);
-    const result = await connection.execute(query);
-    res.json(result.rows);
-}
-
-async function getRecipeSteps(req, res) {
-    var recipeID = req.params.recipeid;
-    console.log('getting steps for recipe ' + recipeID)
-    var query = `
-        SELECT *
-        FROM Recipe_Step
-        WHERE recipe_id = ${recipeID}
-        ORDER BY step_num
     `;
     var connection = await oracledb.getConnection(config);
     const result = await connection.execute(query);
