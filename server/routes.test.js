@@ -22,7 +22,7 @@ describe("testing getRelevantTags", () => {
         expect(body).toHaveLength(3);
     });
 });
-
+/*
 app.use('/recipes/:items/:rownum', routes.getRelevantRecipes);
 describe("testing getRelevantRecipes", () => {
     it("GET /recipes one input pt 1", async () => {
@@ -38,7 +38,7 @@ describe("testing getRelevantRecipes", () => {
         expect(body).toHaveLength(2);
     });
 });
-
+*/
 app.use('/recipeinfo/:recipeid', routes.getRecipeInfo);
 describe("testing getRecipeInfo", () => {
     it("GET /recipeinfo attempt 1", async () => {
@@ -126,8 +126,24 @@ describe("testing getRecipeReviews", () => {
 
 app.use("/recipepicture/:recipename", routes.getRecipePicture);
 describe("testing getRecipePicture", () => {
-    it("GET /recipepicture part 1", async () => {
+    it("GET /recipepicture", async () => {
         const { body } = await request(app).get('/recipepicture/pie');
         expect(body).toEqual({ "url" : "https://tse1.mm.bing.net/th?id=OIP.x5-7xmc0XIYK2sOgCXa7eAHaHa&pid=Api"}); //First result for "pie" on Bing
+    });
+});
+
+app.get('/recipes/:items/:query/:type/:sort/:rownum', routes.getRelevantRecipes);
+describe("testing getRelevantRecipies advanced queries", () => {
+    it("GET /recipes test 1.1", async () => {
+        const { body } = await request(app).get('/recipes/beet/%20/0/2/1');
+        expect(body).toHaveLength(20);
+    });
+    it("GET /recipes test 1.2", async () => {
+        const { body } = await request(app).get('/recipes/beet/%20/0/2/361');
+        expect(body).toHaveLength(7);
+    });
+    it("GET /recipes test 2", async () => {
+        const { body } = await request(app).get('/recipes/cocoa%20powder,date,frozen%20raspberry,walnut/%20/1/0/1');
+        expect(body).toHaveLength(1);
     });
 });
