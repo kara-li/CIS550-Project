@@ -44,7 +44,7 @@ export default class NutritionSelection extends React.Component {
         ),
 		Pivots AS (
         	SELECT * FROM
-				(SELECT recipe_id, Nutrient_Id, Amount
+				(SELECT DISTINCT recipe_id, Nutrient_Id, Amount
         		FROM Food_Nutrient f JOIN TaggedIngredients i ON f.fdc_id = i.fdc_id)
 			PIVOT 
 				(SUM(Amount) FOR nutrient_id IN (1093, 1008, 1004, 1005, 1003, 1063))
