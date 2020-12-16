@@ -31,12 +31,12 @@ export default class Sliders extends React.Component {
 		super(props);
     }
     state = {
-        sodiumQuery : `"1093" < 3000 AND "1093" > 0`,
-        calQuery : `"1008" < 5000 AND "1008" > 0`,
-        sugQuery : `"1063" < 3000 AND "1063" > 0`,
-        fatQuery : `"1004" < 3000 AND "1004" > 0`,
-        carbQuery : `"1005" < 3000 AND "1005" > 0`,
-        proQuery : `"1003" < 3000 AND "1093" > 0`
+        sodiumQuery : `"1093" <= 3000 AND "1093" >= 0`,
+        calQuery : `"1008" <= 5000 AND "1008" >= 0`,
+        sugQuery : `"1063" <= 3000 AND "1063" >= 0`,
+        fatQuery : `"1004" <= 3000 AND "1004" >= 0`,
+        carbQuery : `"1005" <= 3000 AND "1005" >= 0`,
+        proQuery : `"1003" <= 3000 AND "1093" >= 0`
     
     }
     handleChangeCal = sliderValues => {

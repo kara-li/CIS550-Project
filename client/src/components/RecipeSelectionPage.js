@@ -8,10 +8,14 @@ export default class RecipeSelectionPage extends React.Component {
 	constructor(props) {
         super(props);
         this.state = {
-            foodItems: []
+            foodItems: [],
+            query: "",
+            sort: 0,
+            type:0
         };
 
         this.submitFoodItems = this.submitFoodItems.bind(this);
+        this.getNutrient = this.getNutrient.bind(this);
     }
 
     async submitFoodItems(foodItems) {
@@ -23,18 +27,27 @@ export default class RecipeSelectionPage extends React.Component {
         console.log(this.state.foodItems.length)
     }
     
+    async getNutrient(query, sort, type) {
+        if (query === "") return; 
+        
+        this.setState({
+            query: query,
+            type: type,
+            sort:sort
+        });
+    }
     
 	render() {
         let recipes;
         if (this.state.foodItems.length > 0) {
-            recipes = <DisplayRelevantRecipes displayRecipe={this.props.displayRecipe} foodItems={this.state.foodItems}/>
+            recipes = <DisplayRelevantRecipes displayRecipe={this.props.displayRecipe} foodItems={this.state.foodItems} query = {this.state.query} sort = {this.state.sort} type = {this.state.type}/>
         } else {
             recipes = "select foods"
         }
 
         return (
             <div>
-                <RecipeSelectionParams submitFoodItems = {this.submitFoodItems}/>
+                <RecipeSelectionParams submitFoodItems = {this.submitFoodItems} getNutrient = {this.getNutrient}/>
 {/* 
                 <div className="container recommendations-container">
                     <div className="jumbotron"> */}

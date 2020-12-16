@@ -45,7 +45,7 @@ export default class DisplayRelevantRecipes extends React.Component {
 
   fetchMoreData = () => {
     if (!this.state.hasMore) return;
-    let url = `http://localhost:8081/recipes/${this.props.foodItems}/${this.state.rowNum}`;
+    let url = `http://localhost:8081/recipes/${this.props.foodItems}/${encodeURI(" " + this.props.query)}/${this.props.type}/${this.props.sort}/${this.state.rowNum}`;
     fetch(url, {
       method: "GET", // The type of HTTP request.
     })
