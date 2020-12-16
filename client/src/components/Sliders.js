@@ -41,37 +41,37 @@ export default class Sliders extends React.Component {
     }
     handleChangeCal = sliderValues => {
         this.setState({ 
-            calQuery : `"1008" < ${Math.max(... sliderValues).toString()} AND "1008" > ${Math.min(... sliderValues).toString()}` 
+            calQuery : `"1008" <= ${Math.max(... sliderValues).toString()} AND "1008" >= ${Math.min(... sliderValues).toString()}` 
          });
          this.props.handler([this.state.sodiumQuery, this.state.calQuery, this.state.sugQuery, this.state.fatQuery, this.state.carbQuery, this.state.proQuery])
     };  
     handleChangeSod = sliderValues => {
         this.setState({ 
-            sodiumQuery : `"1093" < ${Math.max(... sliderValues).toString()} AND "1093" > ${Math.min(... sliderValues).toString()}`
+            sodiumQuery : `"1093" <= ${Math.max(... sliderValues).toString()} AND "1093" >= ${Math.min(... sliderValues).toString()}`
          });
          this.props.handler([this.state.sodiumQuery, this.state.calQuery, this.state.sugQuery, this.state.fatQuery, this.state.carbQuery, this.state.proQuery])
     };  
     handleChangeSug = sliderValues => {
         this.setState({ 
-            sugQuery : `"1063" < ${Math.max(... sliderValues).toString()} AND "1063" > ${Math.min(... sliderValues).toString()}`
+            sugQuery : `"1063" <= ${Math.max(... sliderValues).toString()} AND "1063" >= ${Math.min(... sliderValues).toString()}`
          });
          this.props.handler([this.state.sodiumQuery, this.state.calQuery, this.state.sugQuery, this.state.fatQuery, this.state.carbQuery, this.state.proQuery])
     };  
     handleChangeFat = sliderValues => {
         this.setState({ 
-            fatQuery : `"1004" < ${Math.max(... sliderValues).toString()} AND "1004" > ${Math.min(... sliderValues).toString()}`
+            fatQuery : `"1004" <= ${Math.max(... sliderValues).toString()} AND "1004" >= ${Math.min(... sliderValues).toString()}`
          });
          this.props.handler([this.state.sodiumQuery, this.state.calQuery, this.state.sugQuery, this.state.fatQuery, this.state.carbQuery, this.state.proQuery])
     };  
     handleChangeCarb = sliderValues => {
         this.setState({ 
-            carbQuery : `"1005" < ${Math.max(... sliderValues).toString()} AND "1005" > ${Math.min(... sliderValues).toString()}`
+            carbQuery : `"1005" <= ${Math.max(... sliderValues).toString()} AND "1005" >= ${Math.min(... sliderValues).toString()}`
          });
          this.props.handler([this.state.sodiumQuery, this.state.calQuery, this.state.sugQuery, this.state.fatQuery, this.state.carbQuery, this.state.proQuery])
     };  
     handleChangePro = sliderValues => {
         this.setState({ 
-            proQuery : `"1003" < ${Math.max(... sliderValues).toString()} AND "1003" > ${Math.min(... sliderValues).toString()}`
+            proQuery : `"1003" <= ${Math.max(... sliderValues).toString()} AND "1003" >=${Math.min(... sliderValues).toString()}`
          });
          this.props.handler([this.state.sodiumQuery, this.state.calQuery, this.state.sugQuery, this.state.fatQuery, this.state.carbQuery, this.state.proQuery])
     };    
