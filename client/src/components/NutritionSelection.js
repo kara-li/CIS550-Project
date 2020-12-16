@@ -59,28 +59,41 @@ export default class NutritionSelection extends React.Component {
 		`;
 	}
 	taghandler = tagsret => {
-		this.setState({ tags: tagsret});
-		this.props.getNutrient(this.getQuery(), this.state.sort, this.state.exclude);
+		this.setState({ 
+			tags: tagsret
+		}, () => {
+			this.props.getNutrient(this.getQuery(), this.state.sort, this.state.exclude);
+		})
 	}
 	nutrienthandler = nutrient => {
-		this.setState({ nutrients: nutrient});
-		this.props.getNutrient(this.getQuery(), this.state.sort, this.state.exclude);
+		this.setState({
+			nutrients: nutrient
+		}, () => {
+			this.setState({ nutrients: nutrient});
+			this.props.getNutrient(this.getQuery(), this.state.sort, this.state.exclude);
+		})
 	}
 	sorthandler = sort => {
-		this.setState({ sort: sort});
-		var a = this.getQuery()
-		if (this.state.tags.length == 0 && this.state.nutrients.length == 0) {
-			a = ""
-		}
-		this.props.getNutrient(a, this.state.sort, this.state.exclude);
+		this.setState({
+			sort: sort
+		}, () => {
+			var a = this.getQuery()
+			if (this.state.tags.length == 0 && this.state.nutrients.length == 0) {
+				a = ""
+			}
+			this.props.getNutrient(a, this.state.sort, this.state.exclude);
+		})
 	}
 	excludehandler = exclude => {
-		this.setState({ exclude: exclude});
-		var a = this.getQuery()
-		if (this.state.tags.length == 0 && this.state.nutrients.length == 0) {
-			a = ""
-		}
-		this.props.getNutrient(a, this.state.sort, this.state.exclude);
+		this.setState({
+			exclude: exclude
+		}, () => {
+			var a = this.getQuery()
+			if (this.state.tags.length == 0 && this.state.nutrients.length == 0) {
+				a = ""
+			}
+			this.props.getNutrient(a, this.state.sort, this.state.exclude);
+		})
 	}
 	render() {
 		return (

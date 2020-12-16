@@ -14,6 +14,9 @@ export default class DisplayRelevantRecipes extends React.Component {
     super(props);
     this.state = {
       recipes: [],
+      query: this.props.query,
+      type: this.props.type,
+      sort: this.props.sort,
       rowNum: 1,
       hasMore: true,
       foodItems: this.props.foodItems,
@@ -25,11 +28,14 @@ export default class DisplayRelevantRecipes extends React.Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    if (props.foodItems !== state.foodItems) {
+    if (props.foodItems !== state.foodItems || props.query !== state.query ||  props.sort !== state.sort ||  props.type !== state.type) {
       console.log("getDerivedStateFromProps update");
       return {
         foodItems: props.foodItems,
         recipes: [],
+        query: props.query,
+        type: props.type,
+        sort: props.sort,
         hasMore: true,
         rowNum: 1,
         testCounter: state.testCounter + 1

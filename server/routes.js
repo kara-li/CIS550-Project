@@ -122,7 +122,7 @@ async function getRelevantRecipes(req, res) {
             ${query}
             SELECT * FROM (
                 SELECT id, name, minutes, n_steps, n_ingredients, n_reviews, avg_rating, ROWNUM AS rnum 
-                FROM Recipe r1 JOIN recipe_ids_some_given_food r2 ON r1.id = r2.recipe_id ${orderby}
+                FROM Recipe r1 JOIN query_recipe_ids r2 ON r1.id = r2.recipe_id ${orderby}
             ) WHERE rnum BETWEEN ${rowNumStart} AND ${rowNumStart + batchSize - 1}
             `
     }

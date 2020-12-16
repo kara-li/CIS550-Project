@@ -27,14 +27,13 @@ export default class RecipeSelectionPage extends React.Component {
         console.log(this.state.foodItems.length)
     }
     
-    async getNutrient(query, sort, type) {
-        if (query === "") return; 
-        
-        this.setState({
-            query: query,
-            type: type,
-            sort:sort
-        });
+    async getNutrient(query, sort, type) {     
+            this.setState({
+                query: query,
+                type: type,
+                sort:sort
+            });
+
     }
     
 	render() {
