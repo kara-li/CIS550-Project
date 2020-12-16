@@ -13,7 +13,7 @@ export default class RecipeSelectionPage extends React.Component {
       pic_url: "holder.js/100px180",
     };
   }
-
+/*
   async componentDidMount() {
     console.log("in component did mount fuction");
     console.log(`name is: ${this.props.name}`);
@@ -36,7 +36,7 @@ export default class RecipeSelectionPage extends React.Component {
       console.log("props" + this.state.pic_url);
     });
   }
-
+*/
   render() {
     return (
       <div>
