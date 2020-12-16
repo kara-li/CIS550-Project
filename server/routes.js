@@ -1,7 +1,7 @@
 var config = require('./db-config.js');
 const oracledb = require('oracledb');
-//oracledb.initOracleClient({libDir: '/Users/chaimfishman/instantclient_19_8'});
-oracledb.initOracleClient({libDir: '/Users/Sid/instantclient_19_9'});
+
+oracledb.initOracleClient(config.instantclientRoute);
 
 const https = require("https");
 
@@ -18,7 +18,7 @@ async function getRecipeSteps(req, res) {
         WHERE recipe_id = ${recipeID}
         ORDER BY step_num
     `;
-    var connection = await oracledb.getConnection(config);
+    var connection = await oracledb.getConnection(config.config);
     const result = await connection.execute(query);
     res.json(result.rows);
 }
@@ -29,7 +29,7 @@ async function getRelevantTags(req, res) {
     tagPre = `'${tagPre}%'`;
     var query = `SELECT DISTINCT tag FROM RECIPE_TAG WHERE tag LIKE ${tagPre}`
     console.log(query)
-    var connection = await oracledb.getConnection(config);
+    var connection = await oracledb.getConnection(config.config);
     const result = await connection.execute(query);
     console.log(result.rows)
     res.json(result.rows);
@@ -131,7 +131,7 @@ async function getRelevantRecipes(req, res) {
     `;
 
     console.log(query)
-    var connection = await oracledb.getConnection(config);
+    var connection = await oracledb.getConnection(config.config);
     const result = await connection.execute(query);
     // console.log(result.rows)
     res.json(result.rows);
@@ -145,7 +145,7 @@ async function getRecipeInfo(req, res) {
         FROM RECIPE
         WHERE ID = ${recipeID}
     `;
-    var connection = await oracledb.getConnection(config);
+    var connection = await oracledb.getConnection(config.config);
     const result = await connection.execute(query);
     res.json(result.rows);
 }
@@ -169,7 +169,7 @@ async function getIngredientCals(req, res) {
         SELECT f.DESCRIPTION, c.AMOUNT
         FROM fdc_ids f JOIN cals c ON f.FDC_ID = c.FDC_ID
     `;
-    var connection = await oracledb.getConnection(config);
+    var connection = await oracledb.getConnection(config.config);
     const result = await connection.execute(query);
     res.json(result.rows);
 }
@@ -187,7 +187,7 @@ async function getRecipeReviews(req, res) {
             ORDER BY rating, user_id
         ) WHERE rnum BETWEEN ${rowNumStart} AND ${rowNumStart + batchSize - 1}
     `;
-  var connection = await oracledb.getConnection(config);
+  var connection = await oracledb.getConnection(config.config);
   const result = await connection.execute(query);
   // console.log(result.rows)
   res.json(result.rows);
