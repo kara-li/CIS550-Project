@@ -2,6 +2,10 @@ const express = require("express");
 const routes = require("./routes");
 const request = require("supertest");
 const app = express();
+const dotenv = require("dotenv");
+dotenv.config({
+  path: ".env",
+});
 
 app.use("/recipestags/:tags", routes.getRelevantTags);
 describe("testing getRelevantTags", () => {
@@ -117,5 +121,13 @@ describe("testing getRecipeReviews", () => {
     it("GET /recipereviews few reviews", async () => {
         const { body } = await request(app).get('/recipereviews/142984/1');
         expect(body).toHaveLength(1);
+    });
+});
+
+app.use("/recipepicture/:recipename", routes.getRecipePicture);
+describe("testing getRecipePicture", () => {
+    it("GET /recipepicture part 1", async () => {
+        const { body } = await request(app).get('/recipepicture/pie');
+        expect(body).toEqual({ "url" : "https://tse1.mm.bing.net/th?id=OIP.x5-7xmc0XIYK2sOgCXa7eAHaHa&pid=Api"}); //First result for "pie" on Bing
     });
 });
