@@ -18,6 +18,7 @@ export default class DisplayRelevantRecipes extends React.Component {
       hasMore: true,
       foodItems: this.props.foodItems,
       batchSize: 20, //Should be the same as the batch size in corresponding query in routes.js
+      testCounter: 0
     };
 
     this.fetchMoreData = this.fetchMoreData.bind(this);
@@ -31,7 +32,8 @@ export default class DisplayRelevantRecipes extends React.Component {
         recipes: [],
         hasMore: true,
         rowNum: 1,
-      };
+        testCounter: state.testCounter + 1
+      }
     }
 
     // Return null if the state hasn't changed
@@ -44,8 +46,9 @@ export default class DisplayRelevantRecipes extends React.Component {
   }
 
   fetchMoreData = () => {
+    console.log('fetchMoreData called')
     if (!this.state.hasMore) return;
-    let url = `http://localhost:8081/recipes/${this.props.foodItems}/${this.state.rowNum}`;
+    let url = `http://localhost:8081/recipes/${this.props.foodItems}/${encodeURI(" " + this.props.query)}/${this.props.type}/${this.props.sort}/${this.state.rowNum}`;
     fetch(url, {
       method: "GET", // The type of HTTP request.
     })
@@ -72,16 +75,19 @@ export default class DisplayRelevantRecipes extends React.Component {
             displayRecipe={this.props.displayRecipe}
           />
         ));
-
+          console.log('concating new recipes in fetchMore')
         this.setState({
           recipes: this.state.recipes.concat(recipeDivs),
-          //   recipes: <CardDeck>{this.state.recipes}</CardDeck>,
         });
       })
       .catch((err) => console.log(err)); // Print the error if there is one.
   };
 
   render() {
+    if (this.state.recipes.length === 0) {
+      console.log('recipes empty. calling fetchMoreData')
+      this.fetchMoreData()
+    }
     console.log("rendred againnnnn");
     console.log(this.props.foodItems);
     return (

@@ -25,7 +25,7 @@ app.get("/recipes/:items/:rownum", routes.getRelevantRecipes);
 app.get("/recipeinfo/:recipeid", routes.getRecipeInfo);
 
 app.get('/recipestags/:tags', routes.getRelevantTags);
-app.get('/recipes/:items/:rownum', routes.getRelevantRecipes);
+app.get('/recipes/:items/:query/:type/:sort/:rownum', routes.getRelevantRecipes);
 
 app.get('/recipeinfo/:recipeid', routes.getRecipeInfo);
 

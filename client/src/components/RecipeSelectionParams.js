@@ -12,7 +12,7 @@ export default class RecipeSelectionParams extends React.Component {
 		return (
             <div>
                 <FoodsSelection submitFoodItems = {this.props.submitFoodItems}/>
-                <NutritionSelection/>
+                <NutritionSelection {... this.props}/>
             </div>
 		);
 	}
